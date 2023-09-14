@@ -14,9 +14,9 @@ namespace csharp_lista_indirizzi
         public string Street { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
-        public string Zip { get; set; }
+        public int Zip { get; set; }
 
-        public Indirizzo(string name, string surname, string street, string city, string province, string zip) 
+        public Indirizzo(string name, string surname, string street, string city, string province, int zip) 
         {
             if (name == null || name == String.Empty)
             {
@@ -58,7 +58,7 @@ namespace csharp_lista_indirizzi
                 this.Province = province;
             }
 
-            if (zip == null || zip == String.Empty)
+            if (zip == null)
             {
                 throw new ArgumentNullException(nameof(zip), $"Impossibile creare Indirizzo senza questo parametro");
             }
@@ -67,12 +67,16 @@ namespace csharp_lista_indirizzi
                 this.Zip = zip;
             }
 
+            if (!char.IsDigit(street[0]))
+                throw new Exception($"Il campo {nameof(street)} deve iniziare per numero");
+            else
+                this.Street = street;
         }
 
 
         public override string ToString()
         {
-            return $"L'indirizzo é il seguente: {Name} {Surname} {Street} {City} {Province} {Zip}";
+            return $"L'indirizzo completo é il seguente: {Name}, {Surname}, {Street}, {City}, {Province}, {Zip}";
                   
         }
 
