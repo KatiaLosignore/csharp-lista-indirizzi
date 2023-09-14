@@ -83,11 +83,12 @@ Console.WriteLine(Environment.NewLine);
     {
         StreamWriter fileToWrite = File.CreateText("C:\\Users\\katia\\source\\repos\\csharp-lista-indirizzi\\csharp-lista-indirizzi\\my-newlistaddresses.csv");
 
-        foreach (Indirizzo indirizzo in listAddress)
+        for (int i = 0; i < listAddress.Count; i++)
         {
-
-            fileToWrite.WriteLine(indirizzo.ToString());
+            Console.WriteLine($"{i + 1}. {listAddress[i]}");
+            fileToWrite.WriteLine($"{i + 1}. {listAddress[i]}");
         }
+
 
         fileToWrite.Close();
 
