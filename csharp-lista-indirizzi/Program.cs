@@ -16,14 +16,14 @@ try
 
     try
     {
-
+        // finchè la lettura del file non è terminata
         while (!fileAddress.EndOfStream)
         {
             // leggo il mio file
             string line = fileAddress.ReadLine();
             lineNumber++;
 
-            // registo i dati solo se la riga non è null ed è diversa da 1
+            // registro i dati solo se la riga non è null ed è diversa da 1
             if (lineNumber != null && lineNumber > 1)
             {
                 string[] stringSplits = line.Split(',');
