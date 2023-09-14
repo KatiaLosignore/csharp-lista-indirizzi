@@ -86,7 +86,7 @@ Console.WriteLine(Environment.NewLine);
         foreach (Indirizzo indirizzo in listAddress)
         {
 
-            Console.WriteLine(indirizzo.ToString());
+            fileToWrite.WriteLine(indirizzo.ToString());
         }
 
         fileToWrite.Close();

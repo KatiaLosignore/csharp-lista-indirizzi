@@ -76,7 +76,8 @@ namespace csharp_lista_indirizzi
 
         public override string ToString()
         {
-            return $"L'indirizzo completo é il seguente: {Name}, {Surname}, {Street}, {City}, {Province}, {Zip}";
+            return $" {Name}, {Surname}, {Street}, {City}, {Province}, {Zip}";
+           
                   
         }
 
