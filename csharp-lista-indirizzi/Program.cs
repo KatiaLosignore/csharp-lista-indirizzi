@@ -23,48 +23,32 @@ try
             string line = fileAddress.ReadLine();
             lineNumber++;
 
-            // registro i dati solo se la riga non è null ed è diversa da 1
-            if (lineNumber != null && lineNumber > 1)
+            // inizio a registrare i dati dalla seconda riga
+            if (lineNumber > 1)
             {
-                string[] stringSplits = line.Split(',');
-
-                if (stringSplits.Length != 6)
+                try
                 {
-                    Console.WriteLine($"L'indirizzo ({line}) non è leggibile!");
+                    Indirizzo addressReaded = Indirizzo.ParseFromLine(line);
+                    listAddress.Add(addressReaded);
                 }
-                else
+                catch (ArgumentNullException ex)
                 {
-                    string name = stringSplits[0];
-                    string surname = stringSplits[1];
-                    string street = stringSplits[2];
-                    string city = stringSplits[3];
-                    string province = stringSplits[4];
-                    int zip = int.Parse(stringSplits[5]);
-
-                    Console.WriteLine($"Indirizzo : {name}, {surname}, {street}, {city}, {province}, {zip}");
-
-                    Indirizzo newAddress = new Indirizzo(name, surname, street, city, province, zip);
-
-                    listAddress.Add(newAddress);
+                    Console.WriteLine($"Attenzione si è verificato un errore:" + ex.Message);
                 }
-                lineNumber++;
             }
-            lineNumber++;
-        }
-    }
-    catch (ArgumentNullException ex)
-    {
-        Console.WriteLine($"Attenzione si è verificato un errore:" + ex.Message);
 
-        lineNumber++;
-    }
+        }
+    } 
+     catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    } 
     finally
     {
+        // Dopo l'utilizzo chiudiamo il file
         fileAddress.Close();
     }
 
-    // Dopo l'utilizzo chiudiamo il file
-    fileAddress.Close();
 }
 catch (Exception e)
 {

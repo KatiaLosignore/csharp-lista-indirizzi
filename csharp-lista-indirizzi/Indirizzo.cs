@@ -14,11 +14,11 @@ namespace csharp_lista_indirizzi
         public string Street { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
-        public int Zip { get; set; }
+        public string Zip { get; set; }
 
-        public Indirizzo(string name, string surname, string street, string city, string province, int zip) 
+        public Indirizzo(string name, string surname, string street, string city, string province, string zip) 
         {
-            if (name == null || name == String.Empty)
+            if (name == String.Empty)
             {
                 throw new ArgumentNullException(nameof(name), $"Impossibile creare Indirizzo senza questo parametro");
             } else
@@ -26,7 +26,7 @@ namespace csharp_lista_indirizzi
                 this.Name = name;
             }
 
-            if (surname == null || surname == String.Empty)
+            if (surname == String.Empty)
             {
                 throw new ArgumentNullException(nameof(surname), $"Impossibile creare Indirizzo senza questo parametro");
             } else
@@ -34,7 +34,7 @@ namespace csharp_lista_indirizzi
                 this.Surname = surname;
             }
 
-            if (street == null || street == String.Empty)
+            if (street == String.Empty)
             {
                 throw new ArgumentNullException(nameof(street), $"Impossibile creare Indirizzo senza questo parametro");
             } else
@@ -42,7 +42,7 @@ namespace csharp_lista_indirizzi
                 this.Street = street;
             }
 
-            if (city == null || city == String.Empty)
+            if (city == String.Empty)
             {
                 throw new ArgumentNullException(nameof(city), $"Impossibile creare Indirizzo senza questo parametro");
             } else
@@ -50,7 +50,7 @@ namespace csharp_lista_indirizzi
                 this.City = city;
             }
 
-            if (province == null || province == String.Empty)
+            if (province == String.Empty)
             {
                 throw new ArgumentNullException(nameof(province), $"Impossibile creare Indirizzo senza questo parametro");
             } else
@@ -58,7 +58,7 @@ namespace csharp_lista_indirizzi
                 this.Province = province;
             }
 
-            if (zip == null)
+            if (zip == String.Empty)
             {
                 throw new ArgumentNullException(nameof(zip), $"Impossibile creare Indirizzo senza questo parametro");
             }
@@ -73,12 +73,58 @@ namespace csharp_lista_indirizzi
                 this.Street = street;
         }
 
-
+        // METODI
         public override string ToString()
         {
-            return $" {Name}, {Surname}, {Street}, {City}, {Province}, {Zip}";
+            return $" {Name}, {Surname}, {Street}, {City}, {Province}, {Zip};";
            
                   
+        }
+
+
+        // METODO STATIC
+        public static Indirizzo ParseFromLine(string line)
+        {
+
+            string[] stringSplits = line.Split(',');
+
+            if (stringSplits.Length != 6)
+            {
+                throw new Exception($"L'indirizzo ({line}) non è leggibile!");
+            }
+            else
+            {
+                //definisco una variabile che ad ogni elemento valido aumenterà
+                int counter = 0;
+
+                for (int i = 0; i < stringSplits.Length; i++)
+                {
+                    stringSplits[i] = stringSplits[i].Trim();
+                    if (stringSplits[i].Length > 0)
+                    {
+                        counter++;
+                    }
+                }
+
+                if (counter == 6)
+                {
+                    string name = stringSplits[0];
+                    string surname = stringSplits[1];
+                    string street = stringSplits[2];
+                    string city = stringSplits[3];
+                    string province = stringSplits[4];
+                    string zip = (stringSplits[5]);
+
+                    Console.WriteLine($"Indirizzo di {name} {surname}: {street}, {city}, {province}, {zip};");
+
+                    Indirizzo newAddress = new Indirizzo(name, surname, street, city, province, zip);
+                    return newAddress;
+                }
+                else
+                {
+                    throw new Exception($"L'indirizzo ({line}) contiene valori non validi!");
+                }
+            }
         }
 
     }
